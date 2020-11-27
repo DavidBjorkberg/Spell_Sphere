@@ -138,6 +138,9 @@ GameObject:
   - component: {fileID: 117853726}
   - component: {fileID: 117853724}
   - component: {fileID: 117853727}
+  - component: {fileID: 117853725}
+  - component: {fileID: 117853729}
+  - component: {fileID: 117853728}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -216,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117853719}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.35, y: 1, z: -3.49}
+  m_LocalPosition: {x: -4.35, y: 1.274, z: -3.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -240,6 +243,22 @@ MonoBehaviour:
   playerCamera: {fileID: 963194227}
   leftSpell: {fileID: 11400000, guid: c8bbe242441575c4787e5961882fc5d0, type: 2}
   rightSpell: {fileID: 11400000, guid: c8bbe242441575c4787e5961882fc5d0, type: 2}
+--- !u!208 &117853725
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117853719}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!114 &117853726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +288,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &117853728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117853719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b624e7b9de7c4d4ba4587468089aa12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &117853729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117853719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c68737a8b505e746a833f4fc69351db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spots:
+  - {x: 0, y: 0, z: 1}
+  - {x: -0.5, y: 0, z: 0.5}
+  - {x: -1, y: 0, z: 0}
+  - {x: -0.5, y: 0, z: -0.5}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0.5, y: 0, z: -0.5}
+  - {x: 1, y: 0, z: 0}
+  - {x: 0.5, y: 0, z: 0.5}
+  spotOffset: 1.2
 --- !u!1 &162069407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,9 +1164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9105eb45455f16545827e43d42cf8576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 117853719}
+  player: {fileID: 117853728}
   playerCamera: {fileID: 963194227}
-  gridHandler: {fileID: 0}
 --- !u!4 &1748435940
 Transform:
   m_ObjectHideFlags: 0

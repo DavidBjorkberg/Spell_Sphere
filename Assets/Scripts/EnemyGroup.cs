@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyGroup : MonoBehaviour
 {
     public Enemy enemyPrefab;
-    List<Enemy> enemies = new List<Enemy>();
     Formation formation;
+    internal List<Enemy> enemies = new List<Enemy>();
     internal int currentCellIndex;
     internal Vector3 currentCellPos;
     internal bool isChasing;
@@ -14,20 +14,17 @@ public class EnemyGroup : MonoBehaviour
     const float walkForwardLeftWeight = 1;
     const float walkRightWeight = 1;
     const float walkForwardRightWeight = 1;
-
-    private void Update()
+    public bool IsInChaseRange()
     {
-        if(enemies.Count > 0)
+        float distance = (enemies[0].transform.position - GameManager.Instance.player.transform.position).magnitude;
+        return distance < enemies[0].enemyMovement.chaseDistance;
+    }
+    public void StartChasing()
+    {
+        for (int i = 0; i < enemies.Count; i++)
         {
-            float distance = (enemies[0].transform.position - GameManager.Instance.player.transform.position).magnitude;
-            if(distance < enemies[0].enemyMovement.chaseDistance)
-            {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    enemies[i].enemyMovement.chasing = true;
-                    isChasing = true;
-                }
-            }
+            enemies[i].enemyMovement.EnteredChaseRange();
+            isChasing = true;
         }
     }
     public int Spawn(Vector3 centerOfCell, int currentNrOfEnemies, Formation formation, int cellIndex)

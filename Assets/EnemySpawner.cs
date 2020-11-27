@@ -9,8 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public EnemyGroup enemyGroupPrefab;
     public Formation standardFormation;
     int currentNrOfEnemies = 0;
-    const int nrOfStandardGroupsToSpawn = 5; //Define more of these variables to define how many of other kinds of units to spawn
-    const int nrOfPartitions = 5;
+    const int nrOfStandardGroupsToSpawn = 75; //Define more of these variables to define how many of other kinds of units to spawn
+    const int nrOfPartitions =5;
     const int chanceToSpawnInPercent = 30;
     private void Start()
     {
@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyGroup instantiatedGroup = Instantiate(enemyGroupPrefab, Vector3.zero, Quaternion.identity);
         int nrOfCreatedEnemies = instantiatedGroup.Spawn(gridHandler.GetCellPos(cellIndex)
             , currentNrOfEnemies, standardFormation, cellIndex);
-        enemyHandler.groups.Add(instantiatedGroup);
+        enemyHandler.distantGroups.Add(instantiatedGroup);
         return nrOfCreatedEnemies;
     }
 }

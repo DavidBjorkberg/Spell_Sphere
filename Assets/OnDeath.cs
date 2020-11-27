@@ -20,13 +20,27 @@ public class OnDeath : MonoBehaviour
     }
     public void Play(SpellInfo spellInfo)
     {
-        string spellName = spellInfo.GetSpellName();
+        SwitchColliders();
+        CallSpellEffect(spellInfo);
+
+        enemy.enemyMovement.LeaveAttackSpot();
+        enemy.enemyMovement.navMeshAgent.enabled = false;
+        enemy.isActive = false;
+        group.RemoveEnemyFromGroup(enemy);
+        healthbar.ForceHideHealthbar();
+        Invoke("ResetEnemy", resetTimer);
+    }
+    void SwitchColliders()
+    {
         for (int i = 0; i < ragdollColliders.Length; i++)
         {
             ragdollColliders[i].enabled = true;
         }
         baseCollider.enabled = false;
-        enemy.enemyMovement.navMeshAgent.enabled = false;
+    }
+    void CallSpellEffect(SpellInfo spellInfo)
+    {
+        string spellName = spellInfo.GetSpellName();
         if (string.Compare(spellName, "Fireball", System.StringComparison.Ordinal) == 0)
         {
             FireballInfo fireballInfo = spellInfo as FireballInfo;
@@ -36,9 +50,6 @@ public class OnDeath : MonoBehaviour
         {
 
         }
-        group.RemoveEnemyFromGroup(enemy);
-        healthbar.ForceHideHealthbar();
-        Invoke("ResetEnemy", resetTimer);
     }
     void ApplyKnockback(FireballInfo fireballInfo)
     {

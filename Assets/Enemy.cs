@@ -7,4 +7,9 @@ public class Enemy : MonoBehaviour
     public EnemyCombat enemyCombat;
     public EnemyMovement enemyMovement;
     public OnDeath onDeath;
+    public bool isActive;
+    private void Awake()
+    {
+        isActive = true;
+    }
 }

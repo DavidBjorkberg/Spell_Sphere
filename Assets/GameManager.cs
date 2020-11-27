@@ -5,9 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public GameObject player;
+    public Player player;
     public Camera playerCamera;
-    public GridHandler gridHandler;
+    internal GridHandler gridHandler;
     private void Awake()
     {
         if(Instance == null)
@@ -20,5 +20,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public float GetCheapDistanceBetweenTwoPoints(float x1,float x2,float z1,float z2)
+    {
+        return (x1 - x2) + (z1 - z2);
     }
 }

@@ -12,19 +12,23 @@ public class AttackSpots : MonoBehaviour
     /// </summary>
     public int GetAndClaimClosestSpot(Vector3 pos)
     {
-        float xDelta;
-        float zDelta;
         float distance;
         int closestIndex = -1;
         float closestDistance = -1;
+        float x1;
+        float x2;
+        float z1;
+        float z2;
         for (int i = 0; i < spots.Length; i++)
         {
             if (spotTaken[i])
                 continue;
 
-            xDelta = spots[i].x - pos.x;
-            zDelta = spots[i].z - pos.z;
-            distance = xDelta + zDelta;
+            x1 = spots[i].x;
+            x2 = pos.x;
+            z1 = spots[i].z;
+            z2 = pos.z;
+            distance = GameManager.Instance.GetCheapDistanceBetweenTwoPoints(x1, x2, z1, z2);
             if (distance < closestDistance || closestDistance == -1)
             {
                 closestDistance = distance;
@@ -45,6 +49,22 @@ public class AttackSpots : MonoBehaviour
     {
         spotTaken[index] = false;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Returns -1 if no spot is free</returns>
+    public int GetAndClaimFreeSpot()
+    {
+        for (int i = 0; i < spots.Length; i++)
+        {
+            if(!spotTaken[i])
+            {
+                spotTaken[i] = true;
+                return i;
+            }
+        }
+        return -1;
+    }
     public int GetNrOfFreeSpots()
     {
         int nrOfFreeSpots = 0;
@@ -57,6 +77,7 @@ public class AttackSpots : MonoBehaviour
         }
         return nrOfFreeSpots;
     }
+
     private void OnDrawGizmos()
     {//TODO: Turn off collisions for enemy when moving to spot.
         for (int i = 0; i < 8; i++)
