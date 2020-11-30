@@ -30,6 +30,18 @@ public class GridHandler : MonoBehaviour
     public Vector3 GetCellPos(int index)
     {
         return grid[index].pos;
+       }
+ 
+    public int GetFreeCellIndex()
+    {
+        for (int i = 0; i < nrOfCellsInHeight * nrOfCellsInWidth; i++)
+        {
+            if(!grid[i].isOccupied)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     public int GetCellIndexByPos(Vector3 pos)
     {

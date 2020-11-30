@@ -28,7 +28,7 @@ public class AttackSpots : MonoBehaviour
             x2 = pos.x;
             z1 = spots[i].z;
             z2 = pos.z;
-            distance = GameManager.Instance.GetCheapDistanceBetweenTwoPoints(x1, x2, z1, z2);
+            distance = GameManager.Instance.GetCheapDistanceBetweenTwoPointsXZ(x1, x2, z1, z2);
             if (distance < closestDistance || closestDistance == -1)
             {
                 closestDistance = distance;
@@ -60,6 +60,21 @@ public class AttackSpots : MonoBehaviour
             if(!spotTaken[i])
             {
                 spotTaken[i] = true;
+                return i;
+            }
+        }
+        return -1;
+    }
+    public void ClaimSpot(int index)
+    {
+        spotTaken[index] = true;
+    }
+    public int GetFreeSpot()
+    {
+        for (int i = 0; i < spots.Length; i++)
+        {
+            if (!spotTaken[i])
+            {
                 return i;
             }
         }

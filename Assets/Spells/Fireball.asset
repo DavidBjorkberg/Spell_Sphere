@@ -26,4 +26,4 @@ MonoBehaviour:
   maxKnockback: 900
   minDualKnockback: 800
   maxDualKnockback: 2000
-  upwardsModifier: 1
+  upwardsModifier: 2

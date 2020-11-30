@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerCombat : MonoBehaviour
 {
     public GameObject rightArm;
@@ -9,19 +9,40 @@ public class PlayerCombat : MonoBehaviour
     public Camera playerCamera;
     public Spell leftSpell;
     public Spell rightSpell;
-    bool chargingLeft;
-    bool chargingRight;
-    bool chargingDual;
-    float leftCharge;
-    float rightCharge;
-    float dualCharge;
-    float heldLeftButtonTimer;
-    float heldRightButtonTimer;
-    readonly float chargeDelay = 0.2f;
+    public float maxHealth;
+    public RectTransform healthBar;
+    private float curHealth;
+    private bool chargingLeft;
+    private bool chargingRight;
+    private bool chargingDual;
+    private float leftCharge;
+    private float rightCharge;
+    private float dualCharge;
+    private float heldLeftButtonTimer;
+    private float heldRightButtonTimer;
+    private readonly float chargeDelay = 0.2f;
 
+    private void Awake()
+    {
+        curHealth = maxHealth;
+
+    }
     void Update()
     {
         SpellSequence();
+    }
+    public void TakeDamage(float amount)
+    {
+        curHealth -= amount;
+        healthBar.sizeDelta = new Vector2(curHealth / maxHealth * 500, healthBar.sizeDelta.y);
+        if(curHealth < 0)
+        {
+           Died();
+        }
+    }
+    void Died()
+    {
+        SceneManager.LoadScene(0);
     }
     void SpellSequence()
     {

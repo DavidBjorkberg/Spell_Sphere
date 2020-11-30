@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyCombat : MonoBehaviour
 {
-
     public float maxHealth;
     public float attackRange;
+    public float attackCooldown;
+    public float damage;
+    public Animator animator;
     internal int index;
+    private bool isAttacking;
+    private float attackRangeSquared;
     private Healthbar healthbar;
     private Material material;
     private OnDeath onDeath;
@@ -15,10 +19,50 @@ public class EnemyCombat : MonoBehaviour
     Coroutine takeDamageFlashCoroutine;
     private void Awake()
     {
+        attackRangeSquared = attackRange * attackRange;
         material = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material;
         healthbar = GetComponent<Healthbar>();
         onDeath = GetComponent<OnDeath>();
         curHealth = maxHealth;
+    }
+    public void UpdateFunc()
+    {
+        if (!isAttacking && IsInAttackRange())
+        {
+            StartCoroutine(Attack());
+        }
+    }
+    IEnumerator Attack()
+    {
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            animator.SetBool("isAttacking", true);
+        }
+        yield return new WaitForSeconds(attackCooldown);
+
+        if (IsInAttackRange())
+        {
+            GameManager.Instance.player.playerCombat.TakeDamage(damage);
+            StartCoroutine(Attack());
+        }
+        else
+        {
+            animator.SetBool("isAttacking", false);
+            isAttacking = false;
+        }
+    }
+    bool IsInAttackRange()
+    {
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
+        float x1 = transform.position.x;
+        float x2 = playerPos.x;
+        float y1 = transform.position.y;
+        float y2 = playerPos.y;
+        float z1 = transform.position.z;
+        float z2 = playerPos.z;
+        float distanceToPlayerSquared = GameManager.Instance.GetSquaredDistanceBetweenTwoPointsXYZ(x1, x2, y1, y2, z1, z2);
+        return distanceToPlayerSquared <= attackRangeSquared;
     }
     /// <summary>
     /// Adds knockback on death

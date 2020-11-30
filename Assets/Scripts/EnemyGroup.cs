@@ -14,6 +14,13 @@ public class EnemyGroup : MonoBehaviour
     const float walkForwardLeftWeight = 1;
     const float walkRightWeight = 1;
     const float walkForwardRightWeight = 1;
+    public void CloseGroupUpdate()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].CloseEnemyUpdate();
+        }
+    }
     public bool IsInChaseRange()
     {
         float distance = (enemies[0].transform.position - GameManager.Instance.player.transform.position).magnitude;

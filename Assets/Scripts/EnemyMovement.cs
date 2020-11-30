@@ -14,36 +14,24 @@ public class EnemyMovement : MonoBehaviour
     private float standardRadius = 0.5f;
     private float noCollRadius = 0.07f;
     float minChaseCircle = 2.0f;
-    float maxChaseCircle = 5.0f;
+    float maxChaseCircle = 10.0f;
     private void Awake()
     {
         enemy = GetComponent<Enemy>();
         enemyCombat = GetComponent<EnemyCombat>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
-    private void Update()
+    public void UpdateFunc()
     {
-        if (insideChaseRange && enemy.isActive)
-        {
-            Vector3 playerPos = GameManager.Instance.player.transform.position;
-            FaceTarget(playerPos);
-            navMeshAgent.SetDestination(playerPos + targetOffset);
-        }
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
+        FaceTarget(playerPos);
+        navMeshAgent.SetDestination(playerPos + targetOffset);
     }
-
     public void EnteredChaseRange()
     {
         navMeshAgent.ResetPath();
         insideChaseRange = true;
-        int closestAttackSpotIndex = GameManager.Instance.player.attackSpots.GetAndClaimClosestSpot(transform.position);
-        if (closestAttackSpotIndex == -1)
-        {
-            targetOffset = GetRandomPointAroundPlayer();
-        }
-        else
-        {
-            AssignAttackSpot(closestAttackSpotIndex);
-        }
+        targetOffset = GetRandomPointAroundPlayer();
     }
     public void AssignAttackSpot(int index)
     {
@@ -68,19 +56,11 @@ public class EnemyMovement : MonoBehaviour
     }
     Vector3 GetRandomPointAroundPlayer()
     {
-        Vector3 playerPos = GameManager.Instance.player.transform.position;
-        Vector2 randomPointUnitSphere = Random.insideUnitCircle;
-        float randomPointX = Mathf.Lerp(minChaseCircle, maxChaseCircle, Mathf.Abs(randomPointUnitSphere.x));
-        float randomPointZ = Mathf.Lerp(minChaseCircle, maxChaseCircle, Mathf.Abs(randomPointUnitSphere.y));
-        if (randomPointUnitSphere.x < 0)
-        {
-            randomPointX *= -1;
-        }
-        if (randomPointUnitSphere.y < 0)
-        {
-            randomPointZ *= -1;
-        }
-        Vector3 randomPointAroundPlayer = new Vector3(randomPointX, 0, randomPointZ);
+        Vector2 randomDir = Random.insideUnitCircle.normalized;
+        float randomDistance = Random.Range(minChaseCircle, maxChaseCircle);
+        Vector2 randomPoint = randomDir * randomDistance;
+
+        Vector3 randomPointAroundPlayer = new Vector3(randomPoint.x, 0, randomPoint.y);
         return randomPointAroundPlayer;
     }
 }

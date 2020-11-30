@@ -18,20 +18,35 @@ public class EnemyHandler : MonoBehaviour
         {
             AssignToFreeAttackSpots();
         }
+        for (int i = 0; i < closeGroups.Count; i++)
+        {
+            if (closeGroups[i] == null)
+            {
+                closeGroups.RemoveAt(i);
+                int freeCell = gridHandler.GetFreeCellIndex();
+                GetComponent<EnemySpawner>().SpawnGroup(freeCell);
+                continue;
+            }
+            closeGroups[i].CloseGroupUpdate();
+        }
     }
     void AssignToFreeAttackSpots()
     {
         int freeSpotIndex;
-        freeSpotIndex = GameManager.Instance.player.attackSpots.GetAndClaimFreeSpot();
-        while (freeSpotIndex != -1)
+        freeSpotIndex = GameManager.Instance.player.attackSpots.GetFreeSpot();
+        if (freeSpotIndex != -1)
         {
             Vector3 freeSpotPos = GameManager.Instance.player.attackSpots.GetSpotPos(freeSpotIndex);
             Enemy closestEnemy = GetClosestRoamingEnemy(freeSpotPos);
-            if (closestEnemy != null)
+            while (freeSpotIndex != -1 && closestEnemy != null)
             {
+                GameManager.Instance.player.attackSpots.ClaimSpot(freeSpotIndex);
                 closestEnemy.enemyMovement.AssignAttackSpot(freeSpotIndex);
+
+                freeSpotPos = GameManager.Instance.player.attackSpots.GetSpotPos(freeSpotIndex);
+                closestEnemy = GetClosestRoamingEnemy(freeSpotPos);
+                freeSpotIndex = GameManager.Instance.player.attackSpots.GetFreeSpot();
             }
-            freeSpotIndex = GameManager.Instance.player.attackSpots.GetAndClaimFreeSpot();
         }
     }
     Enemy GetClosestRoamingEnemy(Vector3 pos)
@@ -54,7 +69,7 @@ public class EnemyHandler : MonoBehaviour
                     x2 = pos.x;
                     z1 = closeGroups[i].enemies[j].transform.position.z;
                     z2 = pos.z;
-                    distance = GameManager.Instance.GetCheapDistanceBetweenTwoPoints(x1, x2, z1, z2);
+                    distance = GameManager.Instance.GetCheapDistanceBetweenTwoPointsXZ(x1, x2, z1, z2);
                     if (distance < closestDistance || closestDistance == -1)
                     {
                         closestDistance = distance;

@@ -23,6 +23,7 @@ public class OnDeath : MonoBehaviour
         SwitchColliders();
         CallSpellEffect(spellInfo);
 
+        GameManager.Instance.AddScore(100);
         enemy.enemyMovement.LeaveAttackSpot();
         enemy.enemyMovement.navMeshAgent.enabled = false;
         enemy.isActive = false;
@@ -45,6 +46,7 @@ public class OnDeath : MonoBehaviour
         {
             FireballInfo fireballInfo = spellInfo as FireballInfo;
             ApplyKnockback(fireballInfo);
+            print("Applied knockback");
         }
         else if (string.Compare(spellName, "ChainLightning", System.StringComparison.Ordinal) == 0)
         {
@@ -65,16 +67,17 @@ public class OnDeath : MonoBehaviour
     }
     void ResetEnemy()
     {
-        for (int i = 0; i < ragdollColliders.Length; i++)
-        {
-            ragdollColliders[i].enabled = false;
-        }
-        for (int i = 0; i < ragdollRB.Length; i++)
-        {
-            ragdollRB[i].isKinematic = true;
-        }
-        baseCollider.enabled = true;
-        enemy.enemyCombat.ResetHealth();
-        transform.position = new Vector3(0, -5, 0);
+        Destroy(gameObject);
+        //for (int i = 0; i < ragdollColliders.Length; i++)
+        //{
+        //    ragdollColliders[i].enabled = false;
+        //}
+        //for (int i = 0; i < ragdollRB.Length; i++)
+        //{
+        //    ragdollRB[i].isKinematic = true;
+        //}
+        //baseCollider.enabled = true;
+        //enemy.enemyCombat.ResetHealth();
+        //transform.position = new Vector3(0, -5, 0);
     }
 }

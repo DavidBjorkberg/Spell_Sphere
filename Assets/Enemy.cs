@@ -12,4 +12,9 @@ public class Enemy : MonoBehaviour
     {
         isActive = true;
     }
+    public void CloseEnemyUpdate()
+    {
+        enemyMovement.UpdateFunc();
+        enemyCombat.UpdateFunc();
+    }
 }
