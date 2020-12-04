@@ -20,8 +20,12 @@ MonoBehaviour:
   prefab: {fileID: 7474543588527413526, guid: 5239de5a38e46944196ad70bdf66fba6, type: 3}
   minSize: 0.2
   maxSize: 1
+  minLifeTime: 0.4
+  maxLifeTime: 1.5
   minDualSize: 0.4
   maxDualSize: 2
+  minDualLifeTime: 1
+  maxDualLifeTime: 4
   minKnockback: 600
   maxKnockback: 900
   minDualKnockback: 800

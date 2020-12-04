@@ -6,27 +6,26 @@ public class Fireball : MonoBehaviour
 {
     public float baseSpeed;
     public LayerMask enemyLayer;
-    FireballInfo fireballInfo;
     List<int> hitIndices = new List<int>();
+    Vector3 direction;
     private void Update()
     {
-        transform.position += fireballInfo.direction * baseSpeed * Time.deltaTime;
-        Collider[] hits = Physics.OverlapSphere(transform.position, fireballInfo.size / 2, enemyLayer);
+        transform.position += direction * baseSpeed * Time.deltaTime;
+        Collider[] hits = Physics.OverlapSphere(transform.position, transform.localScale.x / 2, enemyLayer);
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].TryGetComponent(out EnemyCombat enemy)
+            if (hits[i].TryGetComponent(out RobotHealth enemy)
                 && !hitIndices.Contains(enemy.index))
             {
-                fireballInfo.posWhenHit = transform.position;
-                enemy.TakeDamage(fireballInfo);
+                enemy.TakeDamage(1,transform.position,1);
                 hitIndices.Add(enemy.index);
             }
         }
     }
-    public void Initialize(FireballInfo fireballInfo)
+    public void Initialize(Vector3 direction)
     {
-        this.fireballInfo = fireballInfo;
-        transform.localScale = new Vector3(fireballInfo.size, fireballInfo.size, fireballInfo.size);
-        Destroy(gameObject, 10);
+        this.direction = direction;
+       // transform.localScale = new Vector3(fireballInfo.size, fireballInfo.size, fireballInfo.size);
+       // Destroy(gameObject, 10);
     }
 }
