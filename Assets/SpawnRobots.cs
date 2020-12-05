@@ -39,15 +39,15 @@ public class SpawnRobots : MonoBehaviour
         float randomDistance;
         Vector2 randomPoint;
         Vector3 randomPointAroundConstruction;
-      //  do
-      //  {
+        do
+        {
             randomDir = Random.insideUnitCircle.normalized;
             randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
             randomPoint = randomDir * randomDistance;
 
-            randomPointAroundConstruction = new Vector3(transform.position.x + randomPoint.x, 0, transform.position.z + randomPoint.y);
+            randomPointAroundConstruction = new Vector3(transform.position.x + randomPoint.x, transform.position.y, transform.position.z + randomPoint.y);
 
-        //} while (NavMesh.SamplePosition(randomPointAroundConstruction, out NavMeshHit hit, 10, NavMesh.AllAreas));
+        } while (!NavMesh.SamplePosition(randomPointAroundConstruction, out NavMeshHit hit, 1, NavMesh.AllAreas));
 
         Robot robotGO = Instantiate(robotPrefab, randomPointAroundConstruction, Quaternion.identity);
         robotGO.Initialize(transform.position);

@@ -7,6 +7,7 @@ public class ThreatMovement : MonoBehaviour
 {
     NavMeshAgent navmeshAgent;
     Construct construct;
+    bool gotPath;
     private void Awake()
     {
         navmeshAgent = GetComponent<NavMeshAgent>();
@@ -15,10 +16,11 @@ public class ThreatMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (construct.constructionComplete)
+        if (construct.constructionComplete && !gotPath)
         {
             navmeshAgent.enabled = true;
             navmeshAgent.SetDestination(GameManager.Instance.player.transform.position);
+            gotPath = true;
         }
     }
 }

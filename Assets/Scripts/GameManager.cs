@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        scoreText.text = "Score: 0";
+        //scoreText.text = "Score: 0";
         //if (Instance == null)
         //{
         //    DontDestroyOnLoad(gameObject);
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         score += amount;
-        scoreText.text = "Score: " + score.ToString();
+        //scoreText.text = "Score: " + score.ToString();
     }
     public float GetCheapDistanceBetweenTwoPointsXZ(float x1, float x2, float z1, float z2)
     {

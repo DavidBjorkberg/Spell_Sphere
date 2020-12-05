@@ -21,7 +21,7 @@ public class Robot : MonoBehaviour
             GetComponent<NavMeshAgent>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
         }
-        animator.SetBool("isActive", !isOnThreat);
+       // animator.SetBool("isActive", !isOnThreat);
     }
     public void Initialize(Vector3 constructionPos)
     {

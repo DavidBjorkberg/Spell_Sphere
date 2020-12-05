@@ -34,6 +34,7 @@ public class Construct : MonoBehaviour
     }
     void FinishedConstruction()
     {
+        print("FINISHED CONSTRUCTION");
         constructionComplete = true;
     }
 }

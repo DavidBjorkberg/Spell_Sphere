@@ -10,6 +10,7 @@ public class LaserEyes : MonoBehaviour
     public float damage;
     public float speed;
     public float cooldown;
+    public float range;
     private float cooldownTimer;
     Construct construct;
 
@@ -22,7 +23,7 @@ public class LaserEyes : MonoBehaviour
         if (construct.constructionComplete)
         {
             cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer < 0)
+            if (cooldownTimer < 0 && IsInRange()    )
             {
                 Shoot();
                 cooldownTimer = cooldown;
@@ -37,5 +38,13 @@ public class LaserEyes : MonoBehaviour
 
         EyeLaser eyeLaserGO = Instantiate(eyeLaserPrefab, eyePos.position, Quaternion.identity);
         eyeLaserGO.Initialize(direction, damage, speed);
+    }
+    bool IsInRange()
+    {
+        float deltaX = transform.position.x - GameManager.Instance.player.transform.position.x;
+        float deltaZ = transform.position.z - GameManager.Instance.player.transform.position.z;
+
+        float distance = (deltaX * deltaX) + (deltaZ * deltaZ);
+        return distance <= (range * range);
     }
 }

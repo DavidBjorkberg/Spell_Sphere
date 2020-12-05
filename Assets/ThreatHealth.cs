@@ -21,7 +21,7 @@ public class ThreatHealth : MonoBehaviour
             curNrOfParts--;
             if (curNrOfParts <= deathThresholdInParts)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
