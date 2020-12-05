@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class RobotHealth : MonoBehaviour
 {
     public float maxHealth;
-    public Animator animator;
     internal int index;
     private Healthbar healthbar;
     private Material material;
@@ -20,21 +19,24 @@ public class RobotHealth : MonoBehaviour
         curHealth = maxHealth;
     }
 
-    public void TakeDamage(float amount, Vector3 hitPos,float explodePower)
+    public void TakeDamage(float amount, Vector3 hitPos, float explodePower)
     {
-        curHealth -= amount;
-        healthbar.UpdateHealthBar(maxHealth, curHealth);
-        if (curHealth <= 0)
+        if (curHealth > 0)
         {
-            onDeath.Play(hitPos, explodePower);
-        }
-        else
-        {
-            if (takeDamageFlashCoroutine != null)
+            curHealth -= amount;
+            healthbar.UpdateHealthBar(maxHealth, curHealth);
+            if (curHealth <= 0)
             {
-                StopCoroutine(takeDamageFlashCoroutine);
+                onDeath.Play(hitPos, explodePower);
             }
-            takeDamageFlashCoroutine = StartCoroutine(TakeDamageFlash());
+            else
+            {
+                if (takeDamageFlashCoroutine != null)
+                {
+                    StopCoroutine(takeDamageFlashCoroutine);
+                }
+                takeDamageFlashCoroutine = StartCoroutine(TakeDamageFlash());
+            }
         }
     }
 

@@ -8,21 +8,35 @@ public class OnDeath : MonoBehaviour
     public Rigidbody[] ragdollRB;
     public BoxCollider baseCollider;
     public Collider[] ragdollColliders;
-    private Robot enemy;
+
+    private Robot robot;
     private Healthbar healthbar;
     private float resetTimer = 3;
 
     private void Awake()
     {
-        enemy = GetComponent<Robot>();
+        robot = GetComponent<Robot>();
         healthbar = GetComponent<Healthbar>();
     }
-    public void Play(Vector3 hitPos,float explodePower)
+    public void Play(Vector3 hitPos, float explodePower)
     {
         SwitchColliders();
-        ApplyKnockback(hitPos,explodePower);
+        ApplyKnockback(hitPos, explodePower);
+        if (robot.isOnThreat)
+        {
+            robot.threat.PartDied();
+            if (robot.threat.GetComponent<Construct>().constructionComplete)
+            {
+                transform.parent = null;
+            }
+        }
+        else
+        {
+            robot.spawner.RobotDied();
+            robot.robotMovement.navMeshAgent.enabled = false;
+        }
+
         GameManager.Instance.AddScore(100);
-        enemy.enemyMovement.navMeshAgent.enabled = false;
         healthbar.ForceHideHealthbar();
         Invoke("ResetEnemy", resetTimer);
     }
@@ -34,7 +48,7 @@ public class OnDeath : MonoBehaviour
         }
         baseCollider.enabled = false;
     }
-    void ApplyKnockback(Vector3 hitPos,float explodePower)
+    void ApplyKnockback(Vector3 hitPos, float explodePower)
     {
         EnableRagDoll();
         ribsRB.AddExplosionForce(explodePower, hitPos, 5, 1, ForceMode.Impulse);
@@ -48,6 +62,6 @@ public class OnDeath : MonoBehaviour
     }
     void ResetEnemy()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

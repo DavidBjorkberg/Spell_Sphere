@@ -44,7 +44,7 @@ public class PlayerCombat : MonoBehaviour
             if (leftMouseDown)
             {
                 Tear tearGO = Instantiate(fireballPrefab, tearSpawnPos.position, Quaternion.identity);
-                tearGO.Initialize(transform.forward,tearEffects);
+                tearGO.Initialize(playerCamera.transform.forward,tearEffects);
                 shootTimer = shootCooldown;
             }
         }

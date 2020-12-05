@@ -5,12 +5,18 @@ using UnityEngine.AI;
 public class RobotMovement : MonoBehaviour
 {
     internal NavMeshAgent navMeshAgent;
+    private Robot robot;
     private void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        robot = GetComponent<Robot>();
+        if (!robot.isOnThreat)
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
     }
-    private void Update()
+
+    public void Initialize(Vector3 walkTarget)
     {
-        navMeshAgent.SetDestination(GameManager.Instance.player.transform.position);
+        navMeshAgent.SetDestination(walkTarget);
     }
 }
