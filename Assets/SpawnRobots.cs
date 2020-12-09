@@ -8,21 +8,29 @@ public class SpawnRobots : MonoBehaviour
     public float maxSpawnDistance;
     public Robot robotPrefab;
     public float spawnTime;
+    private List<Robot> robots = new List<Robot>();
     private float spawnTimer;
+    private Transform myTransform;
     private int nrOfSpawnedRobots;
     private int nrOfRobotsToSpawn;
 
     private void Awake()
     {
+        myTransform = GetComponent<Transform>();
         nrOfRobotsToSpawn = transform.GetChild(0).childCount;
+        for (int i = 0; i < nrOfRobotsToSpawn; i++)
+        {
+            robots.Add(SpawnRobot());
+        }
     }
     private void Update()
     {
         spawnTimer -= Time.deltaTime;
         if (spawnTimer < 0 && nrOfSpawnedRobots < nrOfRobotsToSpawn)
         {
+            robots[nrOfSpawnedRobots].gameObject.SetActive(true);
+            robots[nrOfSpawnedRobots].Initialize(myTransform.position);
             nrOfSpawnedRobots++;
-            SpawnRobot();
             spawnTimer = spawnTime;
         }
 
@@ -30,9 +38,9 @@ public class SpawnRobots : MonoBehaviour
     public void RobotDied()
     {
         nrOfRobotsToSpawn++;
-
+        robots.Add(SpawnRobot());
     }
-    void SpawnRobot()
+    Robot SpawnRobot()
     {
 
         Vector2 randomDir;
@@ -50,9 +58,11 @@ public class SpawnRobots : MonoBehaviour
         } while (!NavMesh.SamplePosition(randomPointAroundConstruction, out NavMeshHit hit, 1, NavMesh.AllAreas));
 
         Robot robotGO = Instantiate(robotPrefab, randomPointAroundConstruction, Quaternion.identity);
-        robotGO.Initialize(transform.position);
         robotGO.spawner = this;
         robotGO.threat = GetComponent<ThreatHealth>();
+        robotGO.gameObject.SetActive(false);
+
+        return robotGO;
 
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public abstract class TearEffect : ScriptableObject
 {
     public virtual void OnInitialize(Tear tear)
@@ -16,4 +15,5 @@ public abstract class TearEffect : ScriptableObject
     {
         return true;
     }
+    public abstract string GetName();
 }

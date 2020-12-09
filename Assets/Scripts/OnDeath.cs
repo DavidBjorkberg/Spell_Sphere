@@ -9,7 +9,6 @@ public class OnDeath : MonoBehaviour
     public BoxCollider baseCollider;
     public Collider[] ragdollColliders;
     public GameObject rigged;
-    public GameObject unRigged;
     private Robot robot;
     private Healthbar healthbar;
     private float resetTimer = 3;
@@ -56,7 +55,6 @@ public class OnDeath : MonoBehaviour
     }
     void EnableRagDoll()
     {
-        unRigged.SetActive(false);
         rigged.SetActive(true);
     }
     void ResetEnemy()

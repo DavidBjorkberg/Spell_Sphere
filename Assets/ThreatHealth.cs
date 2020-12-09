@@ -21,6 +21,7 @@ public class ThreatHealth : MonoBehaviour
             curNrOfParts--;
             if (curNrOfParts <= deathThresholdInParts)
             {
+                GameManager.Instance.GetComponent<LevelHandler>().ConstructDied();
                 gameObject.SetActive(false);
             }
         }

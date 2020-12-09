@@ -13,9 +13,7 @@ public class Robot : MonoBehaviour
     private OnDeath onDeath;
     private void Awake()
     {
-        robotHealth = GetComponent<RobotHealth>();
         robotMovement = GetComponent<RobotMovement>();
-        onDeath = GetComponent<OnDeath>();
         if (isOnThreat)
         {
             GetComponent<NavMeshAgent>().enabled = false;

@@ -18,7 +18,7 @@ public class Construct : MonoBehaviour
         {
             if (robot.threat.gameObject == gameObject)
             {
-                Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
                 ActivatePart();
             }
         }
@@ -34,7 +34,6 @@ public class Construct : MonoBehaviour
     }
     void FinishedConstruction()
     {
-        print("FINISHED CONSTRUCTION");
         constructionComplete = true;
     }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerCombat : MonoBehaviour
 {
-    public Camera playerCamera;
+    public FPSCamera playerCamera;
     public Transform tearSpawnPos;
     public Tear fireballPrefab;
     public float maxHealth;
+    public Animator muzzleFlash;
+    public Animator recoil;
     public RectTransform healthBar;
     internal List<TearEffect> tearEffects = new List<TearEffect>();
     private float curHealth;
@@ -20,8 +22,17 @@ public class PlayerCombat : MonoBehaviour
     }
     void Update()
     {
-        Shoot();
         shootTimer -= Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Mouse0) && !playerCamera.interacting)
+        {
+            if (shootTimer < 0)
+            {
+                recoil.Play("Recoil", -1, 0);
+                Shoot();
+
+            }
+        }
     }
     public void TakeDamage(float amount)
     {
@@ -44,7 +55,7 @@ public class PlayerCombat : MonoBehaviour
             if (leftMouseDown)
             {
                 Tear tearGO = Instantiate(fireballPrefab, tearSpawnPos.position, Quaternion.identity);
-                tearGO.Initialize(playerCamera.transform.forward,tearEffects);
+                tearGO.Initialize(playerCamera.transform.forward, tearEffects);
                 shootTimer = shootCooldown;
             }
         }

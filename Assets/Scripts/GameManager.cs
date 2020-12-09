@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Text explodeText;
     public Text rotateText;
     public Text doubleText;
+    public PlayerCombat tearCombat;
+    public MissionHandler missionHandler;
     internal int score;
     bool hasExplode;
     bool hasRotate;
@@ -34,52 +36,15 @@ public class GameManager : MonoBehaviour
         {
             if (hasExplode)
             {
-                explodeText.text = "1. Add Explode";
-                RemoveEffect(" (Explode)");
+
                 hasExplode = false;
-            
             }
             else
             {
-                explodeText.text = "1. Remove Explode";
-                player.playerCombat.tearEffects.Add(ScriptableObject.CreateInstance("Explode") as TearEffect);
                 hasExplode = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if (hasRotate)
-            {
-                rotateText.text = "2. Add Spin";
-                RemoveEffect(" (RotatingTear)");
-                hasRotate = false;
 
-            }
-            else
-            {
-                rotateText.text = "2. Remove Spin";
-                player.playerCombat.tearEffects.Add(ScriptableObject.CreateInstance("RotatingTear") as TearEffect);
-                hasRotate = true;
-
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (hasDouble)
-            {
-                doubleText.text = "3. Add Double Shot";
-                RemoveEffect(" (DoubleShotEffect)");
-                hasDouble = false;
-
-            }
-            else
-            {
-                doubleText.text = "3. Remove Double Shot";
-                player.playerCombat.tearEffects.Add(ScriptableObject.CreateInstance("DoubleShotEffect") as TearEffect);
-                hasDouble = true;
-
-            }
-        }
     }
     void RemoveEffect(string effectName)
     {

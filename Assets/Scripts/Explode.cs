@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[CreateAssetMenu(menuName = "TearEffect/Explode")]
 
 public class Explode : TearEffect
 {
@@ -19,5 +20,9 @@ public class Explode : TearEffect
             return false;
         }
         return true;
+    }
+    public override string GetName()
+    {
+        return "Explode";
     }
 }

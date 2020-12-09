@@ -10,11 +10,6 @@ public class Tear : MonoBehaviour
     internal List<TearEffect> tearEffects = new List<TearEffect>();
     public LayerMask enemyLayer;
     internal Vector3 direction;
-
-    private void Awake()
-    {
-
-    }
     protected virtual void Update()
     {
         Move();
@@ -42,7 +37,7 @@ public class Tear : MonoBehaviour
             }
             else
             {
-                tearEffects.Add(ScriptableObject.CreateInstance("DoubleShotEffect") as TearEffect);
+                tearEffects.Add(ScriptableObject.CreateInstance("DoubleShot") as TearEffect);
             }
         }
 

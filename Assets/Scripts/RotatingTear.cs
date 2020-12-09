@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[CreateAssetMenu(menuName = "TearEffect/Rotating")]
 
 public class RotatingTear : TearEffect
 {
@@ -17,5 +18,9 @@ public class RotatingTear : TearEffect
     public override void OnInitialize(Tear tear)
     {
         turnDirection = tear.direction;
+    }
+    public override string GetName()
+    {
+        return "Rotating";
     }
 }

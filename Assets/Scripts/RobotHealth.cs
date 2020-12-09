@@ -7,19 +7,19 @@ public class RobotHealth : MonoBehaviour
     public float maxHealth;
     internal int index;
     private Healthbar healthbar;
-    private Material material;
+    private Material[] materials;
     private OnDeath onDeath;
     private float curHealth;
     Coroutine takeDamageFlashCoroutine;
     private void Awake()
     {
-        material = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material;
+        materials = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().materials;
         healthbar = GetComponent<Healthbar>();
         onDeath = GetComponent<OnDeath>();
         curHealth = maxHealth;
     }
 
-    public void TakeDamage(float amount, Vector3 hitPos, float explodePower)
+    public void TakeDamage(float amount, Vector3 hitDir, float explodePower)
     {
         if (curHealth > 0)
         {
@@ -27,7 +27,7 @@ public class RobotHealth : MonoBehaviour
             healthbar.UpdateHealthBar(maxHealth, curHealth);
             if (curHealth <= 0)
             {
-                onDeath.Play(hitPos, explodePower);
+                onDeath.Play(hitDir, explodePower);
             }
             else
             {
@@ -39,23 +39,29 @@ public class RobotHealth : MonoBehaviour
             }
         }
     }
-
     IEnumerator TakeDamageFlash()
     {
         float lerpValue = 0;
         float lerpSpeed = 7;
-        while (material.color != Color.red)
+
+        while (materials[0].color != Color.red)
         {
-            lerpValue += lerpSpeed * Time.deltaTime;
-            material.color = Color.Lerp(Color.white, Color.red, lerpValue);
-            yield return new WaitForEndOfFrame();
+            foreach (Material material in materials)
+            {
+                lerpValue += lerpSpeed * Time.deltaTime;
+                material.color = Color.Lerp(Color.white, Color.red, lerpValue);
+                yield return new WaitForEndOfFrame();
+            }
         }
         lerpValue = 0;
-        while (material.color != Color.white)
+        while (materials[0].color != Color.white)
         {
-            lerpValue += lerpSpeed * Time.deltaTime;
-            material.color = Color.Lerp(Color.red, Color.white, lerpValue);
-            yield return new WaitForEndOfFrame();
+            foreach (Material material in materials)
+            {
+                lerpValue += lerpSpeed * Time.deltaTime;
+                material.color = Color.Lerp(Color.red, Color.white, lerpValue);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
