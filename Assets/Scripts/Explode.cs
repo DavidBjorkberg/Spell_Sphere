@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Explode : TearEffect
 {
-    public float explodeRadius = 5;
+    public float explodeRadius = 2;
     public override bool OnHit(Tear tear)
     {
         Collider[] hits = Physics.OverlapSphere(tear.transform.position, explodeRadius, 1 << 8);

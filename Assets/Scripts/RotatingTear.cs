@@ -6,7 +6,7 @@ using UnityEngine;
 public class RotatingTear : TearEffect
 {
     Vector3 turnDirection;
-    float turnSpeed = 6;
+    float turnSpeed = 8;
 
     public override void OnMove(Tear tear)
     {
@@ -17,10 +17,11 @@ public class RotatingTear : TearEffect
     }
     public override void OnInitialize(Tear tear)
     {
-        turnDirection = tear.direction;
+        turnDirection = tear.direction - tear.transform.right;
+        turnDirection.Normalize();
     }
     public override string GetName()
     {
-        return "Rotating";
+        return "RotatingTear";
     }
 }

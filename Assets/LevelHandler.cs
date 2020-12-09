@@ -38,7 +38,7 @@ public class LevelHandler : MonoBehaviour
         nrOfAliveEnemies--;
         if (nrOfAliveEnemies <= 0)
         {
-            EndLevel();
+            Invoke("EndLevel", 2);
         }
     }
 }

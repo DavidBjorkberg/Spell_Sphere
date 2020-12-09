@@ -17,13 +17,16 @@ public class Healthbar : MonoBehaviour
     public void UpdateHealthBar(float maxHealth, float curHealth)
     {
         healthBar.sizeDelta = new Vector2((curHealth / maxHealth) * 100, healthBar.sizeDelta.y);
-        if(healthBarCanvas.enabled)
+        if (healthBarCanvas.enabled)
         {
             showHealthBarTimer = 0;
         }
         else
         {
-            showHealthbarCoroutine = StartCoroutine(ShowHealthbar());
+            if (gameObject.activeSelf)
+            {
+                //showHealthbarCoroutine = StartCoroutine(ShowHealthbar());
+            }
         }
     }
     IEnumerator ShowHealthbar()
@@ -39,7 +42,7 @@ public class Healthbar : MonoBehaviour
     }
     public void ForceHideHealthbar()
     {
-        StopCoroutine(showHealthbarCoroutine);
+        //StopCoroutine(showHealthbarCoroutine);
         healthBarCanvas.enabled = false;
     }
 }

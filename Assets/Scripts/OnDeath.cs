@@ -24,10 +24,13 @@ public class OnDeath : MonoBehaviour
         ApplyKnockback(hitPos, explodePower);
         if (robot.isOnThreat)
         {
-            robot.threat.PartDied();
-            if (robot.threat.GetComponent<Construct>().constructionComplete)
+            if (robot.threat.gameObject.activeSelf)
             {
-                transform.parent = null;
+                robot.threat.PartDied();
+                if (robot.threat.GetComponent<Construct>().constructionComplete)
+                {
+                    transform.parent = null;
+                }
             }
         }
         else

@@ -21,21 +21,24 @@ public class RobotHealth : MonoBehaviour
 
     public void TakeDamage(float amount, Vector3 hitDir, float explodePower)
     {
-        if (curHealth > 0)
+        if (gameObject.activeSelf)
         {
-            curHealth -= amount;
-            healthbar.UpdateHealthBar(maxHealth, curHealth);
-            if (curHealth <= 0)
+            if (curHealth > 0)
             {
-                onDeath.Play(hitDir, explodePower);
-            }
-            else
-            {
-                if (takeDamageFlashCoroutine != null)
+                curHealth -= amount;
+                healthbar.UpdateHealthBar(maxHealth, curHealth);
+                if (curHealth <= 0)
                 {
-                    StopCoroutine(takeDamageFlashCoroutine);
+                    onDeath.Play(hitDir, explodePower);
                 }
-                takeDamageFlashCoroutine = StartCoroutine(TakeDamageFlash());
+                else
+                {
+                    if (takeDamageFlashCoroutine != null)
+                    {
+                        StopCoroutine(takeDamageFlashCoroutine);
+                    }
+                    takeDamageFlashCoroutine = StartCoroutine(TakeDamageFlash());
+                }
             }
         }
     }

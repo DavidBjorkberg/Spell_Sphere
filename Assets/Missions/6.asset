@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7a59ff1510f7e740aaf82e6c0c670b2, type: 3}
-  m_Name: 1
+  m_Name: 6
   m_EditorClassIdentifier: 
-  nrOfEnemiesToKill: 5
-  reward: {fileID: 11400000, guid: 51c219808a40c864fa7b9e6bb2624a6a, type: 2}
+  nrOfEnemiesToKill: 2
+  reward: {fileID: 11400000, guid: e16205dbee3c04743ae211124534a613, type: 2}

@@ -682,7 +682,7 @@ SpriteRenderer:
   m_Size: {x: 12.86, y: 9.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &35349523
@@ -5117,7 +5117,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missions:
-  - {fileID: 11400000, guid: fd0048b430678024fbe21be27c3458c7, type: 2}
+  - {fileID: 11400000, guid: a0a19200f5cd35446b481c80d8014fc0, type: 2}
+  - {fileID: 11400000, guid: 0008838c4fcb68a40a55cc374628abfa, type: 2}
+  - {fileID: 11400000, guid: 91003aa9bcf269a4dab8d5000f9c87b8, type: 2}
   leftButton: {fileID: 1331990086}
   rightButton: {fileID: 1857179902}
   playerCam: {fileID: 963194229}
