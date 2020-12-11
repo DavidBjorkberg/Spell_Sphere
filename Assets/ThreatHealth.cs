@@ -26,4 +26,9 @@ public class ThreatHealth : MonoBehaviour
             }
         }
     }
+    public void FinishedConstruction(int nrOfAliveParts)
+    {
+        curNrOfParts = nrOfAliveParts;
+        deathThresholdInParts = Mathf.FloorToInt(curNrOfParts * deathThresholdInPercent);
+    }
 }

@@ -34,6 +34,15 @@ public class Construct : MonoBehaviour
     }
     void FinishedConstruction()
     {
+        int nrOfAliveParts = 0;
+        for (int i = 0; i < transform.GetChild(0).transform.childCount; i++)
+        {
+            if (transform.GetChild(0).GetChild(i).gameObject.activeSelf)
+            {
+                nrOfAliveParts++;
+            }
+        }
+        GetComponent<ThreatHealth>().FinishedConstruction(nrOfAliveParts);
         constructionComplete = true;
     }
 }
