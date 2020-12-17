@@ -23,7 +23,7 @@ public class MissionBoard : Interactable
         missionSelect.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
     }
-    void RandomizeMissions()
+    public void RandomizeMissions()
     {
         int randomMission = Random.Range(0, missions.Count);
         leftButton.transform.GetChild(0).GetComponent<Text>().text = "Enemies to kill: " + missions[randomMission].nrOfEnemiesToKill;

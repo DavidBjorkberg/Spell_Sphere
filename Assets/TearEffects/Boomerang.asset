@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a59ff1510f7e740aaf82e6c0c670b2, type: 3}
-  m_Name: 6
+  m_Script: {fileID: 11500000, guid: edfa791740cdf77468d0d1c0dd464378, type: 3}
+  m_Name: Boomerang
   m_EditorClassIdentifier: 
-  nrOfEnemiesToKill: 4
-  reward: {fileID: 11400000, guid: e16205dbee3c04743ae211124534a613, type: 2}

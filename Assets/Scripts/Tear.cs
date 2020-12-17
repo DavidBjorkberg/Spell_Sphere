@@ -24,7 +24,7 @@ public class Tear : MonoBehaviour
     }
     virtual public void Initialize(Vector3 direction, List<TearEffect> newTearEffects)
     {
-        tearEffects.Clear();
+        tearEffects.Clear(); 
         for (int i = 0; i < newTearEffects.Count; i++)
         {
             if (newTearEffects[i].ToString() == " (Explode)")
@@ -35,9 +35,18 @@ public class Tear : MonoBehaviour
             {
                 tearEffects.Add(ScriptableObject.CreateInstance("RotatingTear") as TearEffect);
             }
-            else
+            else if (newTearEffects[i].ToString() == " (DoubleShot)")
             {
                 tearEffects.Add(ScriptableObject.CreateInstance("DoubleShot") as TearEffect);
+            }
+            else if(newTearEffects[i].ToString() == " (Boomerang)")
+            {
+                tearEffects.Add(ScriptableObject.CreateInstance("Boomerang") as TearEffect);
+            }
+            else if(newTearEffects[i].ToString() == " (MachineGun)")
+            {
+                tearEffects.Add(ScriptableObject.CreateInstance("MachineGun") as TearEffect);
+                GameManager.Instance.player.playerCombat.shootCooldown = 0.1f;
             }
         }
 

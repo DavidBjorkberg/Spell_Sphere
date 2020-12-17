@@ -13,7 +13,7 @@ public class PlayerCombat : MonoBehaviour
     public RectTransform healthBar;
     internal List<TearEffect> tearEffects = new List<TearEffect>();
     private float curHealth;
-    float shootCooldown = 1;
+    public float shootCooldown = 1;
     float shootTimer = 0;
 
     private void Awake()

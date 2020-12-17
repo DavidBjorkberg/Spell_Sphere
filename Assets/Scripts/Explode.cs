@@ -8,7 +8,7 @@ public class Explode : TearEffect
     public float explodeRadius = 2;
     public override bool OnHit(Tear tear)
     {
-        Collider[] hits = Physics.OverlapSphere(tear.transform.position, explodeRadius, 1 << 8);
+        Collider[] hits = Physics.OverlapSphere(tear.transform.position, tear.transform.localScale.x * 2 + 0.2f, 1 << 8);
         if (hits.Length > 0)
         {
             for (int i = 0; i < hits.Length; i++)

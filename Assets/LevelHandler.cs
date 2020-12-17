@@ -31,6 +31,8 @@ public class LevelHandler : MonoBehaviour
 
         missionHandler.progressText.gameObject.SetActive(false);
         GameManager.Instance.player.transform.position = playerTownSpawnPos.position;
+
+        FindObjectOfType<MissionBoard>().RandomizeMissions();
     }
     public void ConstructDied()
     {
